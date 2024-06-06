@@ -22,7 +22,9 @@ class ProductsController < ApplicationController
   # POST /products or /products.json
   def create
     @product = Product.new(product_params)
-
+    Stock.all.each do |stock|
+      @product.stocks << stock
+    end
     respond_to do |format|
       if @product.save
         format.html { redirect_to product_url(@product), notice: "Product was successfully created." }
@@ -49,8 +51,8 @@ class ProductsController < ApplicationController
 
   # DELETE /products/1 or /products/1.json
   def destroy
+    @product.stocks.destroy_all
     @product.destroy
-
     respond_to do |format|
       format.html { redirect_to products_url, notice: "Product was successfully destroyed." }
       format.json { head :no_content }

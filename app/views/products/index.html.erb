@@ -4,7 +4,7 @@
 
 <div id="products">
   <% @products.each do |product| %>
-    <%= render product %>
+    <%= product.title %>
     <p>
       <%= link_to "Show this product", product %>
     </p>

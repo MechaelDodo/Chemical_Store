@@ -1,6 +1,13 @@
 <p style="color: green"><%= notice %></p>
 
 <%= render @stock %>
+<% Product.all.each do |product|%>
+  <div>
+    Product name <h3> <%= product.title %></h3>
+    <h4>Amount: <%= ProductStock.find_by(product_id: product.id, stock_id: @stock.id).amount %></h4>
+    <%= link_to "Show this product", product %>
+  </div>
+<% end %>
 
 <div>
   <%= link_to "Edit this stock", edit_stock_path(@stock) %> |

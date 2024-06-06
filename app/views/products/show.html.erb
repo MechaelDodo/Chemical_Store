@@ -3,6 +3,12 @@
 <%= render @product %>
 
 <div>
+  <p>
+    Общее количество: <%= ProductStock.product_amount(@product.id) %>
+  </p>
+  <a class="btn btn-dark" href=<%="/products/#{@product.id}.json"%>  target="_blank" class="cta-btn">
+    Выгрузить отчет
+  </a>
   <%= link_to "Edit this product", edit_product_path(@product) %> |
   <%= link_to "Back to products", products_path %>
 

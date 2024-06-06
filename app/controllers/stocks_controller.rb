@@ -22,7 +22,9 @@ class StocksController < ApplicationController
   # POST /products or /products.json
   def create
     @stock = Stock.new(stock_params)
-
+    Product.all.each do |product|
+      @stock.products << product
+    end
     respond_to do |format|
       if @stock.save
         format.html { redirect_to stock_url(@stock), notice: "Stock was successfully created." }
@@ -38,7 +40,7 @@ class StocksController < ApplicationController
   def update
     respond_to do |format|
       if @stock.update(product_params)
-        format.html { redirect_to product_url(@stock), notice: "Product was successfully updated." }
+        format.html { redirect_to product_url(@stock), notice: "Stock was successfully updated." }
         format.json { render :show, status: :ok, location: @stock }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -49,6 +51,7 @@ class StocksController < ApplicationController
 
   # DELETE /products/1 or /products/1.json
   def destroy
+    @stock.products.destroy_all
     @stock.destroy
 
     respond_to do |format|
