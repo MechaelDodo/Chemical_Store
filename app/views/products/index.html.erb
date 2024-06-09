@@ -1,14 +1,112 @@
 <p style="color: green"><%= notice %></p>
 
+<section id="hero" class="d-flex align-items-center justify-content-center">
+
+  <div class="container text-center">
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-8">
+        <h1>Магазин бытовой химии</h1>
+        <h2>У нас есть все</h2>
+        <% if user_signed_in? %>
+          <div>
+            <a class="crt-btn" href=<%="/products.json"%>  target="_blank" >
+              Выгрузить отчет по всем продуктам
+            </a>
+          </div>
+          <div>
+            <%= link_to "Создать новый продукт", new_product_path, class: "crt-btn" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="row mt-5 justify-content-center">
+      <div class="carousel slide" data-ride="carousel" id="blogCarousel">
+        <ol class="carousel-indicators">
+          <% unless @products.blank? %>
+            <li data-bs-target="#blogCarousel" data-bs-slide-to="0" class="active"></li>
+            <% if @products.count > 4 and @products.count/4.0 > @products.count/4 %>
+              <% (1..(@products.count/4)).each do |product| %>
+                <li data-bs-target="#blogCarousel" data-bs-slide-to=<%= product %>>></li>
+              <% end %>
+            <% elsif  @products.count > 4 and @products.count/4.0 > @products.count/4 %>
+              <% (1..(@products.count/4-1)).each do |product| %>
+                <li data-bs-target="#blogCarousel" data-bs-slide-to=<%= product %>>></li>
+              <% end %>
+            <% end %>
+          <% end %>
+        </ol>
+        <div class="container carousel-inner">
+          <% unless @products.blank? %>
+            <div class="carousel-item active">
+              <div class="row">
+                <% @products[0...4].each do |product| %>
+                  <div class="col-md-3">
+                    <div class="col-xl-2 col-md-4 d-flex align-items-stretch">
+                      <div class="w-100 p-3">
+                        <div class="icon-box">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="3em" height="3em" fill="#ffc451" class="bi bi-bag-check" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M10.854 8.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                            <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"/>
+                          </svg>
+                          <h3 class="h-title" ><a href=<%= product_path(product) %>><%= product.title %></a></h3>
+
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+            <% i = 5 %>
+            <% while i< @products.count %>
+              <div class="carousel-item">
+                <div class="row">
+                  <% @products[i...i+4].each do |product| %>
+                    <div class="col-md-3">
+                      <div class="col-xl-2 col-md-4 d-flex align-items-stretch">
+                        <div class="w-100 p-3">
+                          <div class="icon-box">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="3em" height="3em" fill="#ffc451" class="bi bi-bag-check" viewBox="0 0 16 16">
+                              <path fill-rule="evenodd" d="M10.854 8.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                              <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"/>
+                            </svg>
+                            <h3 class="h-title" ><a href=<%= product_path(product) %>><%= product.title %></a></h3>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  <% end %>
+                  <% i+=4 %>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <h1>Products</h1>
 
-<div id="products">
-  <% @products.each do |product| %>
-    <%= product.title %>
-    <p>
-      <%= link_to "Show this product", product %>
-    </p>
+
+<% if user_signed_in? %>
+  <%= link_to "New product", new_product_path %>
+<% end %>
+
+<h1>Stocks</h1>
+
+<div id="stocks">
+  <% @stocks.each do |stock| %>
+    <%= render stock %>
+    <% if user_signed_in? %>
+      <p>
+        <%= link_to "Show this stock", stock %>
+      </p>
+    <% end %>
   <% end %>
 </div>
-
-<%= link_to "New product", new_product_path %>
+<% if user_signed_in? %>
+  <%= link_to "New stock", new_stock_path %>
+<% end %>

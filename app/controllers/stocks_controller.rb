@@ -1,6 +1,6 @@
 class StocksController < ApplicationController
   before_action :set_stock, only: %i[ show edit update destroy ]
-
+  before_action :authenticate_user!, only: %i[show new create edit destroy update]
   # GET /products or /products.json
   def index
     @stocks = Stock.all
@@ -40,7 +40,7 @@ class StocksController < ApplicationController
   def update
     respond_to do |format|
       if @stock.update(product_params)
-        format.html { redirect_to product_url(@stock), notice: "Stock was successfully updated." }
+        format.html { redirect_to stock_url(@stock), notice: "Stock was successfully updated." }
         format.json { render :show, status: :ok, location: @stock }
       else
         format.html { render :edit, status: :unprocessable_entity }

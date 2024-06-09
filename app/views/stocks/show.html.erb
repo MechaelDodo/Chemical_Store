@@ -10,8 +10,11 @@
 <% end %>
 
 <div>
+  <a class="btn btn-dark" href=<%="/stocks/#{@stock.id}.json"%>  target="_blank" class="cta-btn">
+    Выгрузить отчет
+  </a>
   <%= link_to "Edit this stock", edit_stock_path(@stock) %> |
-  <%= link_to "Back to stocks", stocks_path %>
+  <%= link_to "Back to products", products_path %>
 
   <%= button_to "Destroy this stock", @stock, method: :delete %>
 </div>

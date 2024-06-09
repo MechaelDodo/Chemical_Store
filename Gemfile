@@ -77,3 +77,10 @@ gem "image_processing", ">= 1.2"
 gem 'turbolinks', '~> 5.2.0'
 gem 'bootstrap', '~> 5.3.3'
 gem 'jquery-rails'
+
+gem "cssbundling-rails", "~> 1.4"
+
+gem "jsbundling-rails", "~> 1.3"
+
+gem "devise", "~> 4.9"
+gem 'cancancan'

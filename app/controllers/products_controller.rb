@@ -1,9 +1,12 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: %i[ show edit update destroy ]
+  #before_filter :authenticate_user!, except => [:new, :create, :destroy, :update]
+  before_action :authenticate_user!, only: %i[show new create edit destroy update]
 
   # GET /products or /products.json
   def index
     @products = Product.all
+    @stocks = Stock.all
   end
 
   # GET /products/1 or /products/1.json

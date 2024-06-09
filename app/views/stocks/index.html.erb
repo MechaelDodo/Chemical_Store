@@ -5,10 +5,13 @@
 <div id="stocks">
   <% @stocks.each do |stock| %>
     <%= render stock %>
-    <p>
-      <%= link_to "Show this stock", stock %>
-    </p>
+    <% if user_signed_in? %>
+        <p>
+          <%= link_to "Show this stock", stock %>
+        </p>
+    <% end %>
   <% end %>
 </div>
-
-<%= link_to "New stock", new_stock_path %>
+<% if user_signed_in? %>
+    <%= link_to "New stock", new_stock_path %>
+<% end %>
