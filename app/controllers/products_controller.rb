@@ -1,7 +1,8 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: %i[ show edit update destroy ]
+
   #before_filter :authenticate_user!, except => [:new, :create, :destroy, :update]
-  before_action :authenticate_user!, only: %i[show new create edit destroy update]
+  before_action :authenticate_user!, only: %i[show new create edit destroy update edit_amount]
 
   # GET /products or /products.json
   def index
@@ -21,6 +22,7 @@ class ProductsController < ApplicationController
   # GET /products/1/edit
   def edit
   end
+
 
   # POST /products or /products.json
   def create
@@ -67,6 +69,7 @@ class ProductsController < ApplicationController
     def set_product
       @product = Product.find(params[:id])
     end
+
 
     # Only allow a list of trusted parameters through.
     def product_params

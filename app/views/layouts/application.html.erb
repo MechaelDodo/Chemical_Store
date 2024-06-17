@@ -30,8 +30,10 @@
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
           <li><a href="/" class="nav-link px-2 text-secondary">Магазин бытовой химии</a></li>
+          <% if user_signed_in? %>
+            <li><a href="/stocks" class="nav-link px-2 text-white">Склады</a></li>
+          <% end %>
           <li><a href="/products" class="nav-link px-2 text-white">Все продукты</a></li>
-          <li><a href="/stocks" class="nav-link px-2 text-white">Склады</a></li>
           <% if user_signed_in? %>
             <li><a href="/users" class="nav-link px-2 text-white">Пользователи</a></li>
           <% end %>

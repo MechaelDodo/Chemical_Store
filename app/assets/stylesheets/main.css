@@ -129,14 +129,22 @@
 .counter__value {
     border: 2px solid #fff;
     border-radius: 4px;
-    margin-left: 5px;
-    width: 30px;
+    margin-left: -10px;
+    width: 80px;
     height: 30px;
     resize: none;
     text-align:center;
     background-color: rgba(28,28,28,0);
     color: #fff;
-    pointer-events: none;
+   /* pointer-events: none;*/
+}
+.update{
+    margin-top: 10px;
+    margin-left: -20px;
+}
+
+.update_product{
+    margin-left: -100px;
 }
 
 .counter__btn{
@@ -146,4 +154,64 @@
 
 .h-title{
     cursor: pointer;
+}
+
+
+
+
+/*
+--------------
+*/
+#hero2 {
+    width: 100%;
+    height: 50vh;
+    background: url("https://tvorenie.by/wp-content/uploads/2015/03/household-chemicals.jpeg") fixed top center;
+    background-size: cover;
+    position: relative;
+}
+
+#hero2:before {
+    content: "";
+    background: rgba(0,0,0,0.6);
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+#hero2 .container{
+    position: relative;
+    padding-top: 75px;
+}
+
+#hero2 h1{
+    margin: 0;
+    font-size: 56px;
+    font-weight: 700;
+    line-height: 64px;
+    color: #fff;
+    font-family: "Poppins", Sans-Serif;
+}
+
+
+#hero2 h2{
+    margin: 10px 0 0 0;
+    color: #fff;
+    font-size: 24px;
+
+}
+
+#hero2 .icon-box h3{
+    font-size: 20px;
+    font-weight: 200;
+    margin-top: 10px;
+    line-height: 26px;
+}
+
+#hero2 .icon-box h3 a{
+    color: #fff;
+}
+
+#hero2 .icon-box h3 a:hover{
+    color: #ffc451;
 }

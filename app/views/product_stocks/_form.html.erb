@@ -1,0 +1,66 @@
+
+<%= form_with(model: product_stock) do |form| %>
+  <% if product_stock.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(product_stock.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+      <ul>
+        <% product_stock.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<section id="hero" class="d-flex align-items-center justify-content-center">
+
+
+  <div class="container text-center">
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-8">
+        <a href=<%= stock_path(stock) %>>
+          <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-cursor" viewBox="0 0 16 16">
+            <path d="M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103zM2.25 8.184l3.897 1.67a.5.5 0 0 1 .262.263l1.67 3.897L12.743 3.52z"/>
+          </svg>
+          <h1><%= stock.title %></h1>
+        </a>
+
+        <h2>Изменить количество продукта</h2>
+      </div>
+    </div>
+    <div class="row mt-5 justify-content-center">
+      <div class="col-xl-2 col-md-4 d-flex align-items-stretch update_product">
+        <div class="w-100 p-3">
+          <div class="icon-box">
+            <svg xmlns="http://www.w3.org/2000/svg" width="3em" height="3em" fill="#ffc451" class="bi bi-bag-check" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M10.854 8.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+              <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"/>
+            </svg>
+            <h3><a href='/'  title=<%= product_path(product) %> ><%= product.title %></a></h3>
+            <div>
+              <button class="counter__btn btn btn-dark" name="button" type="button" data-direction="plus">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                </svg>
+              </button>
+              <%= form.text_field :amount, class:"counter__value" %>
+              <button class="counter__btn btn btn-dark" name="button" type="button" data-direction="minus">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/>
+                </svg>
+              </button>
+            </div>
+
+            <div>
+              <%= form.submit('Изменить',class:'btn btn-dark update')%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<% end %>
