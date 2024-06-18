@@ -3,7 +3,7 @@ class ProductsController < ApplicationController
 
   #before_filter :authenticate_user!, except => [:new, :create, :destroy, :update]
   before_action :authenticate_user!, only: %i[show new create edit destroy update edit_amount]
-
+  load_and_authorize_resource
   # GET /products or /products.json
   def index
     @products = Product.all
@@ -26,7 +26,7 @@ class ProductsController < ApplicationController
 
   # POST /products or /products.json
   def create
-    @product = Product.new(product_params)
+    @product = Product.new(title: product_params['title'], body: product_params['body'], user_id: current_user.id)
     Stock.all.each do |stock|
       @product.stocks << stock
     end

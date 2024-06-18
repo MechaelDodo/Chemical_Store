@@ -4,6 +4,34 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
+    user ||= User.new
+    if user.admin
+      can :manage, :all
+    elsif user.worker
+      can :read, Product
+      can :read, Stock
+      cannot :all, User
+      cannot [:create, :update, :destroy], Stock
+      cannot [:create, :update, :destroy], Product
+      can [:update], ProductStock
+    elsif user.cashier
+      can :read, Product
+      can :read, Stock
+      cannot :all, User
+      cannot [:create, :update, :destroy], Stock
+      cannot [:create, :update, :destroy], Product
+      cannot [:update], ProductStock
+    elsif user.regular
+      can :read, Product
+      #cannot :read, Product, format: :json if user.regular
+      cannot :read, Stock
+      cannot :all, User
+      cannot [:create, :update, :destroy], Stock
+      cannot [:create, :update, :destroy], Product
+      cannot :all, ProductStock
+    end
+
+
     # Define abilities for the user here. For example:
     #
     #   return unless user.present?

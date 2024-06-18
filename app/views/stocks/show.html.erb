@@ -8,17 +8,24 @@
         <h1><%= @stock.title %></h1>
         <h2>Склад</h2>
         <% if user_signed_in? %>
+          <% if current_user.admin? or current_user.worker? or current_user.cashier? %>
+            <div>
+              <a class="crt-btn" href=<%="/stocks/#{@stock.id}.json"%> target="_blank" >
+                Выгрузить отчет по всем товарам на складе
+              </a>
+            </div>
+          <% end %>
           <div>
-            <a class="crt-btn" href=<%="/stocks/#{@stock.id}.json"%> target="_blank" >
-              Выгрузить отчет по всем продуктам на складе
-            </a>
-          </div>
-          <div>
+            <% if can? :update, @stock %>
             <a class="crt-btn" href=<%= edit_stock_path(@stock) %> target="_blank" >
               Изменить склад
             </a>
-            <%= button_to "Удалить склад", @stock, method: :delete, class: "crt-btn" %>
+            <% end %>
+            <% if can? :destroy, @stock %>
+              <%= button_to "Удалить склад", @stock, method: :delete, class: "crt-btn" %>
+            <% end %>
           </div>
+
         <% end %>
       </div>
     </div>
@@ -53,7 +60,9 @@
                           </svg>
                           <h3 class="h-title" ><a href=<%= product_path(product) %>><%= product.title %></a></h3>
                           <h4 style="color: #eee;"><%= ProductStock.find_by(product_id: product.id, stock_id: @stock.id).amount %></h4>
-                          <%= link_to "Изменить", stock_product_edit_path(stock_id: @stock, product_id: product), class: "btn btn-dark update"%>
+                          <% if can? :update, ProductStock %>
+                            <%= link_to "Изменить", stock_product_edit_path(stock_id: @stock, product_id: product), class: "btn btn-dark update"%>
+                          <% end %>
                         </div>
                       </div>
                     </div>

@@ -11,8 +11,19 @@
           <% @users.each do |user| %>
             <% if current_user.id != user.id %>
                 <li>
-                  <div class="form-check form-switch">
-                    <%= user.email %>
+                  <div class="form-check form-switch select_users">
+                    <h4>Email:</h4><%= user.email %>
+                    <% if user.admin%>
+                      <h4>Роль:</h4>Адиминитратор
+                    <% elsif user.worker %>
+                      <h4>Роль:</h4>Работник склада
+                    <% elsif user.cashier %>
+                      <h4>Роль:</h4>Кассир
+                    <% elsif user.regular %>
+                      <h4>Роль:</h4>Обычный пользователь
+                    <% end %>
+
+                    <%= render "form", user: user %>
                   </div>
                 </li>
             <% end %>

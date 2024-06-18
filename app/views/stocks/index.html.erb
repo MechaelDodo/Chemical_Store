@@ -8,16 +8,20 @@
         <h1>Склады</h1>
         <h2>Список всех складов</h2>
         <% if user_signed_in? %>
-          <div>
-            <a class="crt-btn" href=<%="/stocks.json"%> target="_blank" >
-              Выгрузить отчет по всем складам
-            </a>
-          </div>
-          <div>
-            <a class="crt-btn" href=<%= new_stock_path %> target="_blank" >
-              Создать склад
-            </a>
-          </div>
+          <% if current_user.admin? or current_user.worker? or current_user.cashier? %>
+            <div>
+              <a class="crt-btn" href=<%="/stocks.json"%> target="_blank" >
+                Выгрузить отчет по всем складам
+              </a>
+            </div>
+          <% end %>
+          <% if can? :create, Stock %>
+            <div>
+              <a class="crt-btn" href=<%= new_stock_path %> target="_blank" >
+                Создать склад
+              </a>
+            </div>
+          <% end %>
         <% end %>
       </div>
     </div>

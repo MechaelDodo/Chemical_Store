@@ -1,6 +1,7 @@
 class StocksController < ApplicationController
   before_action :set_stock, only: %i[ show edit update destroy ]
   before_action :authenticate_user!, only: %i[show new create edit destroy update]
+  load_and_authorize_resource
   # GET /products or /products.json
   def index
     @stocks = Stock.all
@@ -21,7 +22,7 @@ class StocksController < ApplicationController
 
   # POST /products or /products.json
   def create
-    @stock = Stock.new(stock_params)
+    @stock = Stock.new(title: stock_params['title'], user_id: current_user.id)
     Product.all.each do |product|
       @stock.products << product
     end

@@ -5,17 +5,21 @@
   <div class="container text-center">
     <div class="row justify-content-center">
       <div class="col-md-6 col-lg-8">
-        <h1>Продукты</h1>
-        <h2>Список продуктов бытовой химии</h2>
+        <h1>Товары</h1>
+        <h2>Список товаров бытовой химии</h2>
         <% if user_signed_in? %>
+          <% if current_user.admin? or current_user.worker? or current_user.cashier? %>
+            <div>
+              <a class="crt-btn" href=<%="/products.json"%>  target="_blank" >
+                Выгрузить отчет по всем товарам
+              </a>
+            </div>
+          <% end %>
+          <% if can? :create, Product %>
           <div>
-            <a class="crt-btn" href=<%="/products.json"%>  target="_blank" >
-              Выгрузить отчет по всем продуктам
-            </a>
+            <%= link_to "Создать новый товар", new_product_path, class: "crt-btn" %>
           </div>
-          <div>
-            <%= link_to "Создать новый продукт", new_product_path, class: "crt-btn" %>
-          </div>
+            <% end %>
         <% end %>
       </div>
     </div>
@@ -103,9 +107,13 @@
           <% @stocks.each do |stock| %>
             <li>
               <div class="form-check form-switch">
+                <% if can? :read, stock %>
                 <a href = <%= stock_path(stock) %>>
                   <%= stock.title %>
                 </a>
+                <% else %>
+                  <%= stock.title %>
+                <% end %>
               </div>
             </li>
           <% end %>

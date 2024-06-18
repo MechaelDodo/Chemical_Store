@@ -8,16 +8,22 @@
         <h1><%= @product.title %></h1>
         <h2><%= @product.body %></h2>
         <% if user_signed_in? %>
+          <% if current_user.admin? or current_user.worker? or current_user.cashier? %>
+            <div>
+              <a class="crt-btn" href=<%="/products/#{@product.id}.json"%> target="_blank" >
+                Выгрузить отчет
+              </a>
+            </div>
+          <% end %>
           <div>
-            <a class="crt-btn" href=<%="/products/#{@product.id}.json"%> target="_blank" >
-              Выгрузить отчет
-            </a>
-          </div>
-          <div>
-            <a class="crt-btn" href=<%= edit_product_path(@product) %> target="_blank" >
-              Изменить продукт
-            </a>
-            <%= button_to "Удалить продукт", @product, method: :delete, class: "crt-btn" %>
+            <% if can? :update, @product %>
+              <a class="crt-btn" href=<%= edit_product_path(@product) %> target="_blank" >
+                Изменить товар
+              </a>
+            <% end %>
+            <% if can? :destroy, @product %>
+              <%= button_to "Удалить товар", @product, method: :delete, class: "crt-btn" %>
+            <% end %>
           </div>
         <% end %>
       </div>
@@ -31,7 +37,9 @@
               <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"/>
             </svg>
             <h3><a href='/'  title=<%= product_path(@product) %> ><%= @product.title %></a></h3>
-            <h4 style="color: #eee;"><%= ProductStock.product_amount(@product.id) %></h4>
+            <% unless current_user.regular %>
+              <h4 style="color: #eee;"><%= ProductStock.product_amount(@product.id) %></h4>
+            <% end %>
           </div>
         </div>
       </div>
@@ -56,9 +64,13 @@
             <% if ProductStock.find_by(product_id: @product.id, stock_id: stock.id).amount != 0  %>
               <li>
                 <div class="form-check form-switch">
-                  <a href = <%= stock_path(stock) %>>
+                  <% if can? :read, stock %>
+                    <a href = <%= stock_path(stock) %>>
+                      <%= stock.title %>
+                    </a>
+                  <% else %>
                     <%= stock.title %>
-                  </a>
+                  <% end %>
                 </div>
               </li>
             <% end %>

@@ -31,11 +31,15 @@
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
           <li><a href="/" class="nav-link px-2 text-secondary">Магазин бытовой химии</a></li>
           <% if user_signed_in? %>
+            <% if can? :read, Stock %>
             <li><a href="/stocks" class="nav-link px-2 text-white">Склады</a></li>
+            <% end %>
           <% end %>
-          <li><a href="/products" class="nav-link px-2 text-white">Все продукты</a></li>
+          <li><a href="/products" class="nav-link px-2 text-white">Все товары</a></li>
           <% if user_signed_in? %>
-            <li><a href="/users" class="nav-link px-2 text-white">Пользователи</a></li>
+            <% if can? :read, User %>
+              <li><a href="/users" class="nav-link px-2 text-white">Пользователи</a></li>
+            <% end %>
           <% end %>
           <li><a href="#" class="nav-link px-2 text-white">About</a></li>
         </ul>
@@ -46,7 +50,15 @@
 
         <div class="text-end">
           <% if user_signed_in? %>
-            <a type="button" class="btn btn-outline-light me-2" href="<%= destroy_user_session_path %>">Profile</a>
+            <% if current_user.admin %>
+              <a type="button" class="btn btn-outline-light me-2" href="#">Администратор</a>
+            <% elsif current_user.worker %>
+              <a type="button" class="btn btn-outline-light me-2" href="#">Работник</a>
+            <% elsif current_user.cashier %>
+              <a type="button" class="btn btn-outline-light me-2" href="#">Кассир</a>
+            <% elsif current_user.regular %>
+              <a type="button" class="btn btn-outline-light me-2" href="#">Пользователь</a>
+            <% end  %>
             <a data-method="delete" type="button" class="btn btn-warning" href="<%= destroy_user_session_path %>">Sign-out</a>
           <% else %>
             <a type="button" class="btn btn-outline-light me-2" href="<%= new_user_session_path %>">Login</a>
