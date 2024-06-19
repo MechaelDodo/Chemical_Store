@@ -1,0 +1,12 @@
+Уважаемый администратор <%= @user.email %>
+Следующие продукты достигли минимального количества и их следует заказать:
+<% @product_stocks.each do |product_stock| %>
+  <div>
+    <br>
+    <h3>Продукт: </h3><%= Product.find(product_stock.product_id).title %>
+    <h3>Склад: </h3><%= Stock.find(product_stock.stock_id).title %>
+    <h3>Количество: </h3><%= product_stock.amount %>
+    <br>
+  </div>
+<% end %>
+
