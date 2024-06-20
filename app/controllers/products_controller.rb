@@ -6,7 +6,14 @@ class ProductsController < ApplicationController
   load_and_authorize_resource
   # GET /products or /products.json
   def index
-    @products = Product.all
+    if params[:search].blank? and params[:stock_ids].blank?
+      @products = Product.all
+    elsif params[:stock_ids].present?
+      @products = Product.where(id: ProductStock.where('amount != 0').where(stock_id: params[:stock_ids].map(&:to_i)).pluck(:product_id))
+    else
+      key = "%#{params[:search]}%"
+      @products = Product.where("title LIKE ?", key)
+    end
     @stocks = Stock.all
   end
 
@@ -63,6 +70,8 @@ class ProductsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

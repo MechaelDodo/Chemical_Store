@@ -44,9 +44,13 @@
           <li><a href="#" class="nav-link px-2 text-white">About</a></li>
         </ul>
 
-        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-          <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
-        </form>
+        <%# content_for :index do %>
+
+            <%= form_tag products_path, class: "col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3", :method => "get" do %>
+              <%= text_field_tag :search, params[:search], placeholder:"Поиск продуктов...", class: "form-control form-control-dark" %>
+            <% end %>
+          <%# end %>
+
 
         <div class="text-end">
           <% if user_signed_in? %>
@@ -68,8 +72,8 @@
       </div>
     </div>
   </header>
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
+<!--  <p class="notice"><%#= notice %></p>-->
+<!--  <p class="alert"><%#= alert %></p>-->
 
     <%= yield %>
 

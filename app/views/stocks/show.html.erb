@@ -1,4 +1,3 @@
-<p style="color: green"><%= notice %></p>
 
 <section id="hero" class="d-flex align-items-center justify-content-center">
 
@@ -32,24 +31,24 @@
     <div class="row mt-5 justify-content-center">
       <div class="carousel slide" data-ride="carousel" id="blogCarousel">
         <ol class="carousel-indicators">
-          <% unless @stock.products.blank? %>
+          <% unless @products.blank? %>
             <li data-bs-target="#blogCarousel" data-bs-slide-to="0" class="active"></li>
-            <% if @stock.products.count > 4 and @stock.products.count/4.0 > @stock.products.count/4 %>
-              <% (1..(@stock.products.count/4)).each do |product| %>
+            <% if @products.count > 4 and @products.count/4.0 > @products.count/4 %>
+              <% (1..(@products.count/4)).each do |product| %>
                 <li data-bs-target="#blogCarousel" data-bs-slide-to=<%= product %>>></li>
               <% end %>
-            <% elsif  @stock.products.count > 4 and @stock.products.count/4.0 > @stock.products.count/4 %>
-              <% (1..(@stock.products.count/4-1)).each do |product| %>
+            <% elsif  @products.count > 4 and @products.count/4.0 > @products.count/4 %>
+              <% (1..(@products.count/4-1)).each do |product| %>
                 <li data-bs-target="#blogCarousel" data-bs-slide-to=<%= product %>>></li>
               <% end %>
             <% end %>
           <% end %>
         </ol>
         <div class="container carousel-inner">
-          <% unless @stock.products.blank? %>
+          <% unless @products.blank? %>
             <div class="carousel-item active">
               <div class="row">
-                <% @stock.products[0...4].each do |product| %>
+                <% @products[0...4].each do |product| %>
                   <div class="col-md-3">
                     <div class="col-xl-2 col-md-4 d-flex align-items-stretch">
                       <div class="w-100 p-3">
@@ -71,10 +70,10 @@
               </div>
             </div>
             <% i = 5 %>
-            <% while i< @stock.products.count %>
+            <% while i< @products.count %>
               <div class="carousel-item">
                 <div class="row">
-                  <% @stock.products[i...i+4].each do |product| %>
+                  <% @products[i...i+4].each do |product| %>
                     <div class="col-md-3">
                       <div class="col-xl-2 col-md-4 d-flex align-items-stretch">
                         <div class="w-100 p-3">

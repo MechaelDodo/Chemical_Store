@@ -1,4 +1,5 @@
 send_notification:
   cron: "*/1 * * * 1-5"
+#  cron: "30 * * * 1-5"
   class: "SendNotificationJob"
   queue: default

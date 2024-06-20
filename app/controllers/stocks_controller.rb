@@ -9,6 +9,7 @@ class StocksController < ApplicationController
 
   # GET /products/1 or /products/1.json
   def show
+    @products = @stock.products.order(title: :desc)
   end
 
   # GET /products/new
@@ -40,7 +41,7 @@ class StocksController < ApplicationController
   # PATCH/PUT /products/1 or /products/1.json
   def update
     respond_to do |format|
-      if @stock.update(product_params)
+      if @stock.update(stock_params)
         format.html { redirect_to stock_url(@stock), notice: "Stock was successfully updated." }
         format.json { render :show, status: :ok, location: @stock }
       else

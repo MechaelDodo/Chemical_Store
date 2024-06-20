@@ -1,0 +1,15 @@
+=> 
+[[32m#<ProductStock:0x00007f9a159cafe8[0m
+  id: [34m[1m100[0m,
+  product_id: [34m[1m13[0m,
+  stock_id: [34m[1m15[0m,
+  created_at: Thu, 06 Jun 2024 17:52:22.526171000 UTC +00:00,
+  updated_at: Thu, 06 Jun 2024 17:52:22.526171000 UTC +00:00,
+  amount: [34m[1m0[0m[32m>[0m,
+ [32m#<ProductStock:0x00007f9a15dfad20[0m
+  id: [34m[1m101[0m,
+  product_id: [34m[1m14[0m,
+  stock_id: [34m[1m15[0m,
+  created_at: Thu, 06 Jun 2024 17:52:22.529153000 UTC +00:00,
+  updated_at: Thu, 06 Jun 2024 17:52:22.529153000 UTC +00:00,
+  amount: [34m[1m0[0m[32m>[0m]
